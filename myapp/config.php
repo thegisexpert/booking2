@@ -9,3 +9,4 @@ $con = mysqli_connect($mysql_host, $mysql_user,$mysql_password,$mysql_database);
 if (!$con) {
  die("Connection failed: " . mysqli_connect_error());
 }
+?>

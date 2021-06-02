@@ -1,25 +1,21 @@
 $(document).ready(function(){
-	$("#search").click(function() {
-		var keywords = $('#keywords').val();
-		getData('search', keywords, '');
+	$("#filter").click(function() {
+		//var keywords = $('#keywords').val();
+		getData('search', name, event);
 	});
-	$("#sortSearch").change(function() {
-		var sortValue = $(this).val();
-		var keywords = $('#keywords').val();
-		getData('sort', keywords, sortValue);
-	});
+
 });
-function getData(type, keywords, sortValue) {	
+function getData(type, name, event) {
 	$.ajax({
 		type: 'POST',
-		url: 'search_data.php',
-		data: 'type='+type+'&keywords='+keywords+'&sortValue='+sortValue,
+		url: 'action2.php',
+		data: 'name='+name+'&event='+event,
 		beforeSend:function(html){
-			$('.loading-overlay').show();
+			//$('.loading-overlay').show();
 		},
 		success:function(html){
-			$('.loading-overlay').hide();
-			$('#userData').html(html);
+			//$('.loading-overlay').hide();
+			//$('#userData').html(html);
 		}
 	});
 }

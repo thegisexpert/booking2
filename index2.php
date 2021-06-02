@@ -14,6 +14,9 @@
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+
+        <script src="js/jquery-3.6.0.min.js"></script>
+         <script src="js/search.js"></script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -47,17 +50,17 @@
             </tr>
                  <tr>
                            <td>
-<form action="action.php" method="post">
-                            						Name:		<input  name="name" autocomplete="off" type="text" >
+
+                            						Name:		<input id="name"  name="name" autocomplete="off" type="text" >
 
 
-                                                				Event:				<input name="event" autocomplete="off" type="text" >
+                                                				Event:				<input id="event" name="event" autocomplete="off" type="text" >
 
-                                                      				Init date:	<input  name="init_date" autocomplete="off" type="text" >
-                                                      				End date:	<input name="end_date" autocomplete="off" type="text" >
+                                                      				Init date:	<input   id="init_date" name="init_date" autocomplete="off" type="text" >
+                                                      				End date:	<input id="end_date" name="end_date" autocomplete="off" type="text" >
 
-    <input type="submit" value="submit"/>
-	</form>
+    <input id="filter" type="button" />
+
                                                   </td>
 
                     </tr>

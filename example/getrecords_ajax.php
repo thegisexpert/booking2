@@ -1,7 +1,9 @@
 <?php 
     
 
+$param = $_POST['name'];
 
+$param2 = $_POST['name'];
 
     $mysql_host= 'localhost:3307';
      $mysql_database='participant';
@@ -19,6 +21,7 @@
     /* SQL query to get results from database */
 
     $sql = "select * from event, participant, participant_event";
+    //$sql = $param;
     
     //$sql = "SELECT id, first_name, last_name, email FROM users ";
     
@@ -33,6 +36,7 @@
     /* send a JSON encded array to client */
 
     //console.log($result_array);
-    echo (json_encode($result_array));
-    
+    //echo (json_encode($result_array));
+    echo (json_encode($param));
+
     $conn->close();

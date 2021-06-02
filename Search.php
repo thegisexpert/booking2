@@ -4,6 +4,8 @@ class Search{
   $mysql_database='participant';
   $mysql_user="root";
   $mysql_password="123456";
+
+
     public function __construct(){
 
 
@@ -18,43 +20,38 @@ class Search{
         }
 
         $this->db = $con;
+
+         $sqlQuery = "select * from event, participant, participant_event";
+
+
+        		$searchResult = $this->searchResult();
+                echo ($sqlQuery);
+        		print_r($searchResult);
+
     }
     public function searchResult($sqlQueryConditions = array()){
-        $sqlQuery = 'SELECT ';
-        $sqlQuery .= array_key_exists("select",$sqlQueryConditions)?$sqlQueryConditions['select']:'*';
-        $sqlQuery .= ' FROM orders';
+        echo ("here");
+
+
 
         $sqlQuery = "select * from event, participant, participant_event";
-        if(array_key_exists("where",$sqlQueryConditions)){
-            $sqlQuery .= ' WHERE ';
-            $i = 0;
-            foreach($sqlQueryConditions['where'] as $key => $value){
-                $pre = ($i > 0)?' AND ':'';
-                $sqlQuery .= $pre.$key." = '".$value."'";
-                $i++;
-            }
-        }        
-        if(array_key_exists("search",$sqlQueryConditions)){
-            $sqlQuery .= (strpos($sqlQuery, 'WHERE') !== false)?' AND (':' WHERE (';
-            $i = 0;
-            foreach($sqlQueryConditions['search'] as $key => $value){
-                $pre = ($i > 0)?' OR ':' ';
-                $sqlQuery .= $pre.$key." LIKE '%".$value."%'";
-                $i++;
-            }
-			$sqlQuery .= ")";
-        }        
-        if(array_key_exists("order_by",$sqlQueryConditions)){
-            $sqlQuery .= ' ORDER BY '.$sqlQueryConditions['order_by']; 
-        }        
-        if(array_key_exists("start",$sqlQueryConditions) && array_key_exists("limit",$sqlQueryConditions)){
-            $sqlQuery .= ' LIMIT '.$sqlQueryConditions['start'].','.$sqlQueryConditions['limit']; 
-        }elseif(!array_key_exists("start",$sqlQueryConditions) && array_key_exists("limit",$sqlQueryConditions)){
-            $sqlQuery .= ' LIMIT '.$sqlQueryConditions['limit']; 
-        }
 
-        $sqlQuery = "select * from event, participant, participant_event";
-		$searchResult = $this->db->query($sqlQuery);
+
+         $sqlQuery = "select * from event, participant, participant_event";
+
+
+        $searchResult = mysqli_query($con,$sqlQuery);
+        echo ($sqlQuery);
+
+        if($searchResult && $searchResult->num_rows > 0){
+                while($row = $searchResult->fetch_assoc()){
+                  $searchData[] = $row;
+                  }
+
+               }
+        return !empty($searchData)?$searchData:false;
+        /**
+		$searchResult = mysqli_query($this->db,$sqlQuery);
         echo ($sqlQuery);
 		print_r($searchResult);
 
@@ -65,5 +62,14 @@ class Search{
 
         }
         return !empty($searchData)?$searchData:false;
-    }
+        **/
+
 }
+
+}
+
+$searchData = new searchData();
+	$searchResult = $this->searchResult();
+                echo ($sqlQuery);
+        		print_r($searchResult);
+?>

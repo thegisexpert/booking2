@@ -1,5 +1,8 @@
     <html> 
-    <head> 
+    <head>
+       <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+          <script src="js/search.js"></script>
+
        <title>AJAX jQuery Example with PHP MySQL</title> 
        <style type="text/css">
         body{
@@ -25,7 +28,25 @@
 
         <h3><u>AJAX jQuery Example with PHP MySQL</u></h3>
 
-        <p><strong>Click on button to display users records from database</strong></p> 
+        <p><strong>Click on button to display users records from database</strong></p>
+        <table>
+           <tr>
+                                   <td>
+
+                                    						Name:		<input id="name"  name="name" autocomplete="off" type="text" >
+
+
+                                                        				Event:				<input id="myev" name="myev" autocomplete="off" type="text" >
+
+                                                              				Init date:	<input   id="init_date" name="init_date" autocomplete="off" type="text" >
+                                                              				End date:	<input id="end_date" name="end_date" autocomplete="off" type="text" >
+
+            <input id="filter" type="button" />
+
+                                                          </td>
+
+                            </tr>
+                            </table>
         
         <div id="records"></div> 
         
@@ -35,47 +56,7 @@
       
     </div> 
 
-    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
-   
-    <script type="text/javascript"> 
-
-        $(function(){ 
-
-          $("#getusers").on('click', function(){ 
-
-          $.ajax({ 
-
-            method: "GET", 
-            
-            url: "getrecords_ajax.php",
-
-          }).done(function( data ) {
-
-           console.log("data");
-
-           console.log(data);
-
-            var result= $.parseJSON(data);
 
 
-
-
-            var string='<table width="100%"><tr> <th>#</th><th>Name</th> <th>Email</th><tr>';
-     
-           /* from result create a string of data and append to the div */
-          
-            $.each( result, function( key, value ) { 
-              
-              string += "<tr> <td>"+value['employee_name'] + "</td><td>"+value['employee_name']+' '+value['event_name']+'</td>  \
-                        <td>'+value['employee_name']+"</td> </tr>";
-                  }); 
-
-                 string += '</table>'; 
-
-              $("#records").html(string); 
-           }); 
-        }); 
-    }); 
-    </script> 
     </body>
     </html>

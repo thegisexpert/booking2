@@ -1,9 +1,9 @@
 <?php 
     
 
-$param = $_POST['name'];
+$name = $_POST['name'];
 
-$param2 = $_POST['name'];
+$desc = $_POST['myev'];
 
     $mysql_host= 'localhost:3307';
      $mysql_database='participant';
@@ -18,13 +18,27 @@ $param2 = $_POST['name'];
     if ($conn->connect_error) {
          die("Connection to database failed: " . $conn->connect_error);
     }
-    /* SQL query to get results from database */
 
-    $sql = "select * from event, participant, participant_event";
+  include("config.php");
+    $sql = "select * from event, participant, participant_event where ";
+
+    if ($name != ''){
+    $sql.= "participant.employee_name like  '%$name%' ";
+
+     }
+
+     if (($init_date != '') and ($end_date!= '')){
+         $sql .= " and event_date between  '%$init_date%' and '%$end_date%'";
+
+         }
+
+    file_put_contents("C:/Testrexx/hola.txt", $sql);
+
+    //$sql = "select * from event, participant, participant_event";
     //$sql = $param;
     
     //$sql = "SELECT id, first_name, last_name, email FROM users ";
-    
+    $sql = "select * from event, participant, participant_event";
     $result = $conn->query($sql);
     /* If there are results from database push to result array */
     
@@ -35,8 +49,8 @@ $param2 = $_POST['name'];
     }
     /* send a JSON encded array to client */
 
-    //console.log($result_array);
-    //echo (json_encode($result_array));
-    echo (json_encode($param));
+    console.log($result_array);
+    echo (json_encode($result_array));
+    //echo (json_encode($param));
 
     $conn->close();

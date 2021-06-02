@@ -3,7 +3,7 @@
 
 $name = $_POST['name'];
 
-$desc = $_POST['myev'];
+$myev= $_POST['myev'];
 
     $mysql_host= 'localhost:3307';
      $mysql_database='participant';
@@ -20,25 +20,50 @@ $desc = $_POST['myev'];
     }
 
   include("config.php");
-    $sql = "select * from event, participant, participant_event where ";
+    $sql = "select * from event, participant, participant_event";
+
+    if ($myev != ''){
+        $sql1.= " event.event_name like  '%$myev%' ";
+
+         }
+
 
     if ($name != ''){
-    $sql.= "participant.employee_name like  '%$name%' ";
+    $sql2.= "participant.employee_name like  '%$name%' ";
 
      }
+
+     if (($sql1 != '') and ($sql2 != '')){
+    $sql_where= "  where  ".$sql1." and ".$sql2;
+     }
+
+ if (($sql1 != '') and ($sql2 == '')){
+    $sql_where= "  where  ".$sql1;
+     }
+
+     if (($sql1 == '') and ($sql2 != '')){
+         $sql_where= "  where  ".$sql1."" ;
+          }
+
+
+
+
 
      if (($init_date != '') and ($end_date!= '')){
          $sql .= " and event_date between  '%$init_date%' and '%$end_date%'";
 
          }
 
+         if ($sql_where!=""){
+
+     $sql =$sql.$sql_where;
+      }
+
     file_put_contents("C:/Testrexx/hola.txt", $sql);
 
     //$sql = "select * from event, participant, participant_event";
     //$sql = $param;
-    
-    //$sql = "SELECT id, first_name, last_name, email FROM users ";
-    $sql = "select * from event, participant, participant_event";
+
     $result = $conn->query($sql);
     /* If there are results from database push to result array */
     
